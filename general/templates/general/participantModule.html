@@ -1,0 +1,117 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block self-style %}
+<link rel="stylesheet/less" href="{% static "general/participant.less" %}" media="all" type="text/css"/>
+{% endblock %}
+
+{% block self-script %}
+<script src="{% static "js/general/participantModule.js" %}" charset="utf-8"></script>
+{% endblock %}
+
+{% block header %}{{ module.name }}{% endblock %}
+
+{% block nav %}
+<!-- Menu item: Home -->
+<li>
+  <a href="#" id="home">
+    <span class="glyphicon glyphicon-home"></span>Home
+  </a>
+</li>
+
+<!-- Menu item: Catalog -->
+<li>
+  <a href="#" data-toggle="collapse" data-target="#categories" id="catalog">
+    <span class="glyphicon glyphicon-book"></span>Catalog
+  </a>
+</li>
+
+<!-- Collapse sub-menu: categories -->
+<div class="collapse" id="categories">
+  <!-- List all categories -->
+  {% for category in categoryList %}
+  <li>
+    <a href="#" class="category" id="{{ category.id }}">{{ category.name }}</a>
+  </li>
+  {% endfor %}
+</div>
+
+<!-- Menu item: Back to course -->
+<li>
+  <a href="#" id="back">
+    <span class="glyphicon glyphicon-menu-left"></span>Back to Course
+  </a>
+</li>
+
+<!-- Logout -->
+<div class="menu-bottom">
+  <li>
+    <a href="/logout/" class="link" id="logout">
+      <span class="glyphicon glyphicon-log-out"></span>Logout
+    </a>
+  </li>
+</div>
+{% endblock %}
+
+{% block main-content %}
+<!-- Module description row -->
+<div class="row page-header">
+  <div class="col-sm-12">
+    <h4 class="module-desc">{{ module.description }}</h4>
+  </div>
+</div> <!-- End module description row -->
+
+<div class="components-container">
+  <ul class="jumbotron-list">
+  {% for component in components %}
+  <!-- List components in module -->
+  {% if component.typeName == 'TEXT' %}
+  <li>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="component jumbotron" id="{{ component.index }}">
+          <p class="content-text">{{ component.content }}</p>
+        </div>
+      </div>
+    </div>
+  </li>
+  {% elif component.typeName == 'IMAGE' %}
+  <li>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="component jumbotron" id="{{ component.index }}">
+          <img class="content-img" src="{{ component.content.url }}"/>
+        </div>
+      </div>
+    </div>
+  </li>
+  {% elif component.typeName == 'VIDEO' %}
+  <li>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="component jumbotron" id="{{ component.index }}">
+          <iframe class="content-vdo" src="{{ component.content }}" frameborder="0" allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </li>
+  {% else %}
+  <li>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="component jumbotron" id="{{ component.index }}">
+          <a class="content-file link" href="{{ component.content.url }}" download>
+            <span class="glyphicon glyphicon-save"></span>
+            {{ component.content.name }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </li>
+  {% endif %}
+  {% endfor %}
+  </ul>
+</div>
+{% endblock %}

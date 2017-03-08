@@ -1,0 +1,107 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block self-style %}
+<link rel="stylesheet/less" href="{% static "general/instructor.less" %}" media="all" type="text/css"/>
+{% endblock %}
+
+{% block self-script %}
+<script src="{% static "js/general/editModule.js" %}" charset="utf-8"></script>
+{% endblock %}
+
+{% block header %}Edit Module{% endblock %}
+
+{% block nav %}
+<!-- Menu item: Home -->
+<li>
+  <a href="#" id="home">
+    <span class="glyphicon glyphicon-home"></span>Home
+  </a>
+</li>
+
+<!-- Logout -->
+<div class="menu-bottom">
+  <li>
+    <a href="/logout/" class="link" id="logout">
+      <span class="glyphicon glyphicon-log-out"></span>Logout
+    </a>
+  </li>
+</div>
+{% endblock %}
+
+{% block main-content %}
+<!-- Module information form -->
+<form id="editModuleForm">
+  <!-- Input module name -->
+  <div class="form-group">
+    <input class="well well-sm well-input fullwidth" placeholder="Module name" id="name" value="{{ module.name }}"></input>
+  </div>
+
+  <!-- Input module description -->
+  <div class="form-group">
+    <textarea class="well well-sm well-input fullwidth" placeholder="Module description" rows=10 id="description">{{ module.description }}</textarea>
+  </div>
+
+  <!-- Submit button -->
+  <div class="form-group submit">
+    <button type="submit" class="btn btn-default">Save</button>
+  </div>
+</form> <!-- End course information form -->
+{% endblock %}
+
+{% block extra-modal %}
+<!-- Validation failed modal dialog -->
+<div class="modal fade" id="validateFailModal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Error</h4>
+      </div>
+      <div class="modal-body">
+        <p>One or more fields required.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> <!-- End modal -->
+
+<!-- Edit success modal dialog -->
+<div class="modal fade" id="editSuccessModal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Success</h4>
+      </div>
+      <div class="modal-body">
+        <p>Module updated successfully.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-success" data-dismiss="modal">Go to module</button>
+      </div>
+    </div>
+  </div>
+</div> <!-- End modal -->
+
+<!-- Edit failed modal dialog -->
+<div class="modal fade" id="createFailModal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close btn-fail" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Error</h4>
+      </div>
+      <div class="modal-body">
+        <p>An error occurred. Edition failed.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-fail" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> <!-- End modal -->
+{% endblock %}

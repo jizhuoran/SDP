@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SDP</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}" media="all" type="text/css"/>
+    <link rel="stylesheet/less" href="{% static "general/general.less" %}" media="all" type="text/css"/>
+    <link rel="stylesheet/less" href="{% static "general/login.less" %}" media="all" type="text/css"/>
+    <script src="{% static "js/jquery-3.1.1.min.js" %}" charset="utf-8"></script>
+    <script src="{% static "js/less.min.js" %}" charset="utf-8"></script>
+    <script src="{% static "bootstrap/js/bootstrap.min.js" %}" charset="utf-8"></script>
+    <script src="{% static "js/common.js" %}" charset="utf-8"></script>
+    <script src="{% static "js/general/login.js" %}" charset="utf-8"></script>
+  </head>
+  <body>
+    <!-- Main viewpoint container -->
+    <div class="container-fluid viewpoint-container cbg-primary">
+      <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+          <div class="jumbotron login-frame">
+            <div class="row tab-row">
+              <a href="#">
+                <div class="tab col-sm-6 active">
+                  LOGIN
+                </div>
+              </a>
+              <a href="#">
+                <div class="tab col-sm-6">
+                  SIGN UP
+                </div>
+              </a>
+            </div>
+            <form id="loginForm">
+              {% csrf_token %}
+              <div class="form-container">
+                <input name="action" value="LOGIN" hidden/>
+                <!-- Username -->
+                <div class="form-group">
+                  <input type="text" class="well well-sm well-input" placeholder="Username" name="username"></input>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                  <input type="password" class="well well-sm well-input" placeholder="Password" name="password" id="password"></input>
+                </div>
+
+                <!-- Select user type -->
+                <div class="form-group">
+                  <select class="well well-sm well-input" name="usertype">
+                    <option value="Participant">Participant</option>
+                    <option value="Instructor">Instructor</option>
+                    <option value="HR">HR</option>
+                    <option value="Administrator">Administrator</option>
+                  </select>
+                </div>
+
+                <!-- Submit button -->
+                <div class="form-group submit">
+                  <button type="submit" class="btn btn-default">Login</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-sm-4"></div>
+      </div>
+
+      <!-- Validation failed modal dialog -->
+      <div class="modal fade" id="validateFailModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close btn-error" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+              <p>One or more fields required.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-error" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End modal -->
+
+      <!-- Login fail modal dialog -->
+      <div class="modal fade" id="loginFailModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close btn-error" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+              <p>Login failed. Incorrect username/password.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-error" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End modal -->
+
+      <!-- Register error modal dialog -->
+      <div class="modal fade" id="registerErrorModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close btn-error" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+              <p>Passwords do not match.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-error" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End modal -->
+
+      <!-- Username duplication modal dialog -->
+      <div class="modal fade" id="dupErrorModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close btn-error" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+              <p>Username already exists.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-error" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End modal -->
+
+      <!-- Username invalid modal dialog -->
+      <div class="modal fade" id="invErrorModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close btn-error" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+              <p>Invalid username.</p>
+              <p>Username must be 8-digit combination of</p>
+              <p>alphanumeric characters, dash, and underscore.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-error" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End modal -->
+
+      <!-- Error modal dialog -->
+      <div class="modal fade" id="errorModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close btn-error" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+              <p>An error occurred.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-error" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End modal -->
+    </div> <!-- End viewpoint container -->
+  </body>
+</html>

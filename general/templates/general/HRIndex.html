@@ -1,0 +1,70 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block self-style %}
+<link rel="stylesheet/less" href="{% static "general/HR.less" %}" media="all" type="text/css"/>
+{% endblock %}
+
+{% block self-script %}
+<script src="{% static "js/general/HRIndex.js" %}" charset="utf-8"></script>
+{% endblock %}
+
+{% block nav %}
+<!-- Menu item: Home -->
+<li>
+  <a class="active" href="#" id="home">
+    <span class="glyphicon glyphicon-home"></span>Home
+  </a>
+</li>
+
+<!-- Logout -->
+<div class="menu-bottom">
+  <li>
+    <a href="/logout/" class="link" id="logout">
+      <span class="glyphicon glyphicon-log-out"></span>Logout
+    </a>
+  </li>
+</div>
+{% endblock %}
+
+{% block main-content %}
+{% if users %}
+<!-- Show users -->
+<div>
+  <h4 class="info-text page-header">Users</h4>
+</div>
+<ul class="user-list">
+  {% for user in users %}
+  {% if user.name and user.name|cut:" " != '' %}
+  <li>
+    <div class="row">
+      <div class="col-sm-2">
+        <p class="user-name">{{ user.username }}</p>
+      </div>
+      <div class="col-sm-2">
+        <p class="user-name">{{ user.name }}</p>
+      </div>
+      <div class="col-sm-4">
+        <p class="user-group">
+          {% for group in user.groups %}
+          {{ group }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+      </div>
+    </div>
+  </li>
+  {% endif %}
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if not users %}
+<!-- If no courses, display default message -->
+<div class="container-fluid centered text-center">
+  <h3 class="info-text jumbotron">
+    There is no user.<br>
+  </h3>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+@import "colors";
+
+.category {
+  margin-left: 20px;
+  a {
+    display: block;
+    text-decoration: none;
+    color: @linkColor;
+    &:hover {
+      color: @linkActiveColor;
+    }
+  }
+}
+
+.progress {
+  border-radius: 0px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  .progress-bar {
+    background-color: @primaryColor !important;
+  }
+}

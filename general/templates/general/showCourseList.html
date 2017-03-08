@@ -1,0 +1,69 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block self-style %}
+<link rel="stylesheet/less" href="{% static "general/participant.less" %}" media="all" type="text/css"/>
+{% endblock %}
+
+{% block self-script %}
+<script src="{% static "js/general/participantIndex.js" %}" charset="utf-8"></script>
+{% endblock %}
+
+{% block header %}{{ category.name }}{% endblock %}
+
+{% block nav %}
+<!-- Menu item: Home -->
+<li>
+  <a href="#" id="home">
+    <span class="glyphicon glyphicon-home"></span>Home
+  </a>
+</li>
+
+<!-- Menu item: Catalog -->
+<li>
+  <a href="#" class="active" data-toggle="collapse" data-target="#categories" id="catalog">
+    <span class="glyphicon glyphicon-book"></span>Catalog
+  </a>
+</li>
+
+<!-- Collapse sub-menu: categories -->
+<div class="collapse in" id="categories">
+  <!-- List all categories -->
+  {% for categoryItr in categoryList %}
+  <li>
+    <a href="#" class="category" id="{{ categoryItr.id }}">{{ categoryItr.name }}</a>
+  </li>
+  {% endfor %}
+</div>
+
+<!-- Logout -->
+<div class="menu-bottom">
+  <li>
+    <a href="/logout/" class="link" id="logout">
+      <span class="glyphicon glyphicon-log-out"></span>Logout
+    </a>
+  </li>
+</div>
+{% endblock %}
+
+{% block main-content %}
+{% for course in courses %}
+<!-- List courses -->
+<a href="#">
+  <div class="course jumbotron" id="{{ course.id }}">
+    <p class="course-name">{{ course.name }}</p>
+    <p class="course-desc">{{ course.description }}</p>
+  </div>
+</a>
+{% endfor %}
+{% if not courses %}
+<!-- If no courses, display default message -->
+<div class="container-fluid centered text-center">
+  <h3 class="info-text jumbotron">
+    There is no course under this category yet.<br>
+    Check out other categories!
+  </h3>
+</div>
+{% endif %}
+{% endblock %}

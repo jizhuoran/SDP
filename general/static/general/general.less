@@ -1,0 +1,250 @@
+@import "colors";
+
+html body .container-fluid {
+  overflow: hidden;
+}
+
+a, a:hover {
+  text-decoration: none !important;
+}
+
+li {
+  list-style: none !important;
+}
+
+.viewpoint-container {
+  min-height: 100%;
+  min-height: 100vh;
+  max-height: 100%;
+  max-height: 100vh;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+
+.content-row {
+  position: relative;
+  flex: 1;
+}
+
+.fill-height {
+  position: absolute;
+  height: 100%;
+}
+
+.scroll-over {
+  min-height: 60vh;
+}
+
+.fullwidth {
+  min-width: 100%;
+  min-width: 100vh;
+  max-width: 100%;
+  max-width: 100vh;
+}
+
+.shadow (@h-shadow: 1px, @v-shadow: 1px, @blur: 3px, @spray: 0px, @color: @shadowColor) {
+  -webkit-box-shadow: @h-shadow @v-shadow @blur @spray @color;
+  -moz-box-shadow: @h-shadow @v-shadow @blur @spray @color;
+  box-shadow: @h-shadow @v-shadow @blur @spray @color;
+  z-index: 1;
+  position: relative;
+}
+
+.glyphicon {
+  margin-right: 10px;
+}
+
+.header-row {
+  .shadow(0px, 0px);
+}
+
+#sidebar-wrapper {
+  width: auto;
+  height: 100%;
+  background-color: @primaryColor;
+  overflow-y: auto;
+}
+
+.sidebar-nav {
+  top: 0;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  list-style: none;
+  height: 100%;
+  li {
+    margin-left: 10px;
+    margin-top: 10px;
+    a {
+      display: block;
+      color: @linkColor;
+      &:hover {
+        color: @linkActiveColor;
+      }
+    }
+  }
+  .menu-bottom {
+    position: absolute;
+    bottom: 30px;
+  }
+}
+
+.active {
+  color: @linkActiveColor !important;
+}
+
+.info-text {
+  color: @navTextColor;
+  &.jumbotron {
+    background-color: transparent;
+    border: none;
+    margin-top: 10%;
+  }
+}
+
+[class$='-name'] {
+  color: @courseNameColor;
+}
+
+[class$='-desc'] {
+  color: @courseDescColor;
+  word-wrap: break-word;
+}
+
+.course, .module, .component {
+  .shadow(0px, 0px);
+  &:hover:not(.disabled) {
+    .shadow(0px, 0px, 6px);
+  }
+  &.disabled {
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    background-color: black;
+  }
+  overflow: hidden;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  &.jumbotron {
+    background-color: white;
+    border: none;
+    border-radius: 0px;
+    padding: 5px 5px 5px 5px;
+  }
+  [class$='-name'], .content-text {
+    font-size: 16px;
+    color: @courseNameColor;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+  [class$='-desc'] {
+    font-size: 14px;
+    color: @courseDescColor;
+    margin-top: 5px;
+    margin-left: 5px;
+    word-wrap: break-word;
+  }
+  .content-img {
+    margin: 0px;
+    width: 100%;
+    max-width: inherit;
+  }
+  .content-file {
+    .glyphicon {
+      color: @courseNameColor;
+    }
+    a, a:hover {
+      text-decoration: none !important;
+    }
+  }
+  .content-vdo {
+    width: 100%;
+    height: 600px;
+  }
+}
+
+.main-column {
+  background-color: @mainBgColor;
+  right: 0;
+  overflow-y: auto;
+  z-index: 0;
+}
+
+.jumbotron-list {
+  padding-left: 0px;
+}
+
+.modal {
+  z-index: 9999;
+}
+
+.btn {
+  border: none !important;
+  border-radius: 0px !important;
+}
+
+.btn-cancel {
+  color: @courseNameColor;
+}
+
+.btn-default {
+  color: @linkActiveColor !important;
+  background-color: darken(@primaryColor, 7%) !important;
+  &:hover:enabled {
+    background-color: @primaryColor !important;
+  }
+  &.btn-enroll {
+    margin-top: 10px !important;
+  }
+}
+
+.form-group {
+  margin-top: 40px;
+  margin-left: 20px;
+  margin-bottom: 0px;
+}
+
+.well-input {
+  border-radius: 0px;
+  border: none;
+  background-color: @inputBgColor !important;
+  color: @courseNameColor !important;
+}
+
+.has-error {
+  .shadow(0px, 0px, 5px, 0px, @errorColor);
+}
+
+.cbg-primary {
+  background-color: @primaryColor;
+}
+
+.cbg-darken {
+  background-color: darken(@primaryColor, 7%);
+  color: white;
+}
+
+.placeholder {
+  color: @placeholderColor !important;
+  option {
+    color: @courseNameColor !important;
+  }
+}
+
+::-webkit-input-placeholder {
+  color: @placeholderColor !important;
+}
+
+:-moz-placeholder {
+  color: @placeholderColor !important;
+  opacity:  1;
+}
+
+::-moz-placeholder {
+  color: @placeholderColor !important;
+  opacity:  1;
+}
+
+:-ms-input-placeholder {
+  color: @placeholderColor !important;
+}
